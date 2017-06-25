@@ -3,7 +3,6 @@ package reverseProxy;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
@@ -42,10 +41,6 @@ public class RPServer {
     }
 
     public static void main(String[] args) {
-//        if (args.length != 1) {
-//            System.err.println("Please give port as argument");
-//            System.exit(1);
-//        }
 
         int port = Integer.parseInt("9090");
         final RPServer endpoint = new RPServer();
