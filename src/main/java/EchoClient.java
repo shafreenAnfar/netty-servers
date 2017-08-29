@@ -8,6 +8,14 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.ssl.SslHandler;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.net.ssl.SNIHostName;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLEngine;
+import javax.net.ssl.SSLParameters;
 
 public class EchoClient {
 
@@ -44,6 +52,18 @@ public class EchoClient {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
         try {
+
+            SSLContext sslContext = SSLContext.getDefault();
+            final SSLEngine sslEngine = sslContext.createSSLEngine();
+            sslEngine.setUseClientMode(true);
+
+            SSLParameters sslParameters = new SSLParameters();
+            List list = new ArrayList();
+            list.add(new SNIHostName("getshoutout.com"));
+            sslParameters.setServerNames(list);
+
+            sslEngine.setSSLParameters(sslParameters);
+
             Bootstrap b = new Bootstrap(); // (1)
             b.group(workerGroup); // (2)
             b.channel(NioSocketChannel.class); // (3)
@@ -52,6 +72,7 @@ public class EchoClient {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
 //                    ch.pipeline().addLast(new LoggingHandler(LogLevel.DEBUG));
+                    ch.pipeline().addLast(new SslHandler(sslEngine));
                     ch.pipeline().addLast(new EchoClientHandler());
                 }
             });
@@ -72,8 +93,8 @@ public class EchoClient {
 //            return;
 //        }
         // Parse options.
-        final String host = "127.0.0.1";
-        final int port = Integer.parseInt("8080");
+        final String host = "getshoutout.com";
+        final int port = Integer.parseInt("443");
         new EchoClient(host, port).start();
     }
 }
