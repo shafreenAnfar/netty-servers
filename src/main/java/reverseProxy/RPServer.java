@@ -15,14 +15,15 @@ import java.net.InetSocketAddress;
 public class RPServer {
 
     private final ChannelGroup channelGroup = new DefaultChannelGroup(ImmediateEventExecutor.INSTANCE);
-    private final EventLoopGroup group = new NioEventLoopGroup();
+    private final EventLoopGroup parent = new NioEventLoopGroup(4);
+    private final EventLoopGroup childe = new NioEventLoopGroup(8);
 
     private Channel channel;
 
     public ChannelFuture start(InetSocketAddress address) {
 
         ServerBootstrap bootstrap = new ServerBootstrap();
-        bootstrap.group(group)
+        bootstrap.group(parent, childe)
                 .channel(NioServerSocketChannel.class)
                 .childHandler(new RPServerInit());
         ChannelFuture future = bootstrap.bind(address);
@@ -37,7 +38,7 @@ public class RPServer {
             channel.close();
         }
         channelGroup.close();
-        group.shutdownGracefully();
+        parent.shutdownGracefully();
     }
 
     public static void main(String[] args) {
