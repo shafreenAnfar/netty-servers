@@ -1,15 +1,15 @@
 package carbonReverseProxy;
 
-import org.wso2.transport.http.netty.contract.config.ListenerConfiguration;
-import org.wso2.transport.http.netty.contract.config.SenderConfiguration;
 import org.wso2.transport.http.netty.contract.HttpClientConnector;
 import org.wso2.transport.http.netty.contract.HttpConnectorListener;
 import org.wso2.transport.http.netty.contract.HttpResponseFuture;
 import org.wso2.transport.http.netty.contract.HttpWsConnectorFactory;
 import org.wso2.transport.http.netty.contract.ServerConnector;
 import org.wso2.transport.http.netty.contract.ServerConnectorFuture;
-import org.wso2.transport.http.netty.contractimpl.DefaultHttpWsConnectorFactory;
+import org.wso2.transport.http.netty.contract.config.ListenerConfiguration;
+import org.wso2.transport.http.netty.contract.config.SenderConfiguration;
 import org.wso2.transport.http.netty.contract.config.ServerBootstrapConfiguration;
+import org.wso2.transport.http.netty.contractimpl.DefaultHttpWsConnectorFactory;
 import org.wso2.transport.http.netty.message.HttpCarbonMessage;
 
 import java.util.HashMap;
@@ -19,10 +19,8 @@ import java.util.concurrent.Executors;
 /**
  * Carbon Server
  */
-public class RPCarbonServer {
+public class RPCarbonServerSameThread {
     public static void main(String[] args) {
-
-        final Executor executor = Executors.newFixedThreadPool(100);
 
         HttpWsConnectorFactory httpWsConnectorFactory = new DefaultHttpWsConnectorFactory(8, 50, 50);
 
@@ -30,37 +28,26 @@ public class RPCarbonServer {
         final HttpClientConnector clientConnector = createClientConnector(httpWsConnectorFactory);
 
         ServerConnectorFuture serverConnectorFuture = serverConnector.start();
-        System.out.println("Server connector started.. ");
+        System.out.println("Server connector started on IO threads ... ");
         serverConnectorFuture.setHttpConnectorListener(new HttpConnectorListener() {
             @Override
             public void onMessage(final HttpCarbonMessage inboundRequestMsg) {
-                executor.execute(new Runnable() {
+                inboundRequestMsg.setProperty("port", 8688);
+                inboundRequestMsg.setProperty("host", "127.0.0.1");
+
+                HttpResponseFuture responseFuture = clientConnector.send(inboundRequestMsg);
+                responseFuture.setHttpConnectorListener(new HttpConnectorListener() {
                     @Override
-                    public void run() {
+                    public void onMessage(final HttpCarbonMessage inboundRespMsg) {
+                        try {
+                            inboundRequestMsg.respond(inboundRespMsg);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-                        inboundRequestMsg.setProperty("port", 8688);
-                        inboundRequestMsg.setProperty("host", "127.0.0.1");
-
-                        HttpResponseFuture responseFuture = clientConnector.send(inboundRequestMsg);
-                        responseFuture.setHttpConnectorListener(new HttpConnectorListener() {
-                            @Override
-                            public void onMessage(final HttpCarbonMessage inboundRespMsg) {
-                                executor.execute(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            inboundRequestMsg.respond(inboundRespMsg);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onError(Throwable throwable) {
-                            }
-                        });
+                    @Override
+                    public void onError(Throwable throwable) {
                     }
                 });
             }

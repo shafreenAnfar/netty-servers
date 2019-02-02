@@ -16,14 +16,14 @@ public class RPServer {
 
     private final ChannelGroup channelGroup = new DefaultChannelGroup(ImmediateEventExecutor.INSTANCE);
     private final EventLoopGroup parent = new NioEventLoopGroup(4);
-    private final EventLoopGroup childe = new NioEventLoopGroup(8);
+    private final EventLoopGroup child = new NioEventLoopGroup(50);
 
     private Channel channel;
 
     public ChannelFuture start(InetSocketAddress address) {
 
         ServerBootstrap bootstrap = new ServerBootstrap();
-        bootstrap.group(parent, childe)
+        bootstrap.group(parent, child)
                 .channel(NioServerSocketChannel.class)
                 .childHandler(new RPServerInit());
         ChannelFuture future = bootstrap.bind(address);

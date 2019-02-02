@@ -17,7 +17,7 @@
 */
 package carbonReverseProxy;
 
-import org.ballerinalang.runtime.message.MessageDataSource;
+//import org.ballerinalang.runtime.message.MessageDataSource;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -29,94 +29,95 @@ import java.util.Map;
  *
  * @since 0.8.0
  */
-public class StringDataSource implements MessageDataSource {
-    private String value;
-    private OutputStream outputStream;
-
-    /**
-     * Create a String datasource with a string.
-     * 
-     * @param value String value
-     */
-    public StringDataSource(String value) {
-        this.value = value;
-        this.outputStream = null;
-    }
-
-    /**
-     * Create a String datasource with a string and a target output stream.
-     * 
-     * @param value         String value
-     * @param outputStream  Target outputstream
-     */
-    public StringDataSource(String value, OutputStream outputStream) {
-        this.value = value;
-        this.outputStream = outputStream;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    @Override
-    public void serializeData(OutputStream outputStream) {
-        try {
-            outputStream.write(this.value.getBytes(Charset.defaultCharset()));
-            outputStream.flush();
-//            for (int messagePayload = 0; messagePayload < 1000; messagePayload++) {
-//                this.outputStream.write(this.value.getBytes(Charset.defaultCharset()));
-//                Thread.sleep(1000);
-//            }
-//            this.outputStream.write(this.value.getBytes(Charset.defaultCharset()));
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setOutputStream(OutputStream outputStream) {
-        this.outputStream = outputStream;
-    }
-
-    @Override
-    public String getMessageAsString() {
-        return this.value;
-    }
-
-    @Override
-    public String getValueAsString(String s) {
-        return null;
-    }
-
-    @Override
-    public String getValueAsString(String s, Map<String, String> map) {
-        return null;
-    }
-
-    @Override
-    public Object getValue(String s) {
-        return null;
-    }
-
-    @Override
-    public Object getDataObject() {
-        return null;
-    }
-
-    @Override
-    public String getContentType() {
-        return null;
-    }
-
-    @Override
-    public void setContentType(String s) {
-
-    }
+public class StringDataSource //implements MessageDataSource
+{
+//    private String value;
+//    private OutputStream outputStream;
+//
+//    /**
+//     * Create a String datasource with a string.
+//     *
+//     * @param value String value
+//     */
+//    public StringDataSource(String value) {
+//        this.value = value;
+//        this.outputStream = null;
+//    }
+//
+//    /**
+//     * Create a String datasource with a string and a target output stream.
+//     *
+//     * @param value         String value
+//     * @param outputStream  Target outputstream
+//     */
+//    public StringDataSource(String value, OutputStream outputStream) {
+//        this.value = value;
+//        this.outputStream = outputStream;
+//    }
+//
+//    public String getValue() {
+//        return value;
+//    }
+//
+//    public void setValue(String value) {
+//        this.value = value;
+//    }
+//
+//    @Override
+//    public void serializeData(OutputStream outputStream) {
+//        try {
+//            outputStream.write(this.value.getBytes(Charset.defaultCharset()));
+//            outputStream.flush();
+////            for (int messagePayload = 0; messagePayload < 1000; messagePayload++) {
+////                this.outputStream.write(this.value.getBytes(Charset.defaultCharset()));
+////                Thread.sleep(1000);
+////            }
+////            this.outputStream.write(this.value.getBytes(Charset.defaultCharset()));
+//            outputStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void setOutputStream(OutputStream outputStream) {
+//        this.outputStream = outputStream;
+//    }
+//
+//    @Override
+//    public String getMessageAsString() {
+//        return this.value;
+//    }
+//
+//    @Override
+//    public String getValueAsString(String s) {
+//        return null;
+//    }
+//
+//    @Override
+//    public String getValueAsString(String s, Map<String, String> map) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Object getValue(String s) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Object getDataObject() {
+//        return null;
+//    }
+//
+//    @Override
+//    public String getContentType() {
+//        return null;
+//    }
+//
+//    @Override
+//    public void setContentType(String s) {
+//
+//    }
 }
