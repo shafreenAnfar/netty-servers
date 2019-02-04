@@ -19,11 +19,6 @@ package carbonReverseProxy;
 
 //import org.ballerinalang.runtime.message.MessageDataSource;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.Charset;
-import java.util.Map;
-
 /**
  * {@code StringValue} represents a string value in Ballerina.
  *

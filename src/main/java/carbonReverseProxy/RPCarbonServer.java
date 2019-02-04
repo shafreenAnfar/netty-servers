@@ -1,15 +1,15 @@
 package carbonReverseProxy;
 
-import org.wso2.transport.http.netty.contract.config.ListenerConfiguration;
-import org.wso2.transport.http.netty.contract.config.SenderConfiguration;
 import org.wso2.transport.http.netty.contract.HttpClientConnector;
 import org.wso2.transport.http.netty.contract.HttpConnectorListener;
 import org.wso2.transport.http.netty.contract.HttpResponseFuture;
 import org.wso2.transport.http.netty.contract.HttpWsConnectorFactory;
 import org.wso2.transport.http.netty.contract.ServerConnector;
 import org.wso2.transport.http.netty.contract.ServerConnectorFuture;
-import org.wso2.transport.http.netty.contractimpl.DefaultHttpWsConnectorFactory;
+import org.wso2.transport.http.netty.contract.config.ListenerConfiguration;
+import org.wso2.transport.http.netty.contract.config.SenderConfiguration;
 import org.wso2.transport.http.netty.contract.config.ServerBootstrapConfiguration;
+import org.wso2.transport.http.netty.contractimpl.DefaultHttpWsConnectorFactory;
 import org.wso2.transport.http.netty.message.HttpCarbonMessage;
 
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class RPCarbonServer {
                     @Override
                     public void run() {
 
-                        inboundRequestMsg.setProperty("port", 8688);
+                        inboundRequestMsg.setProperty("port", 8080);
                         inboundRequestMsg.setProperty("host", "127.0.0.1");
 
                         HttpResponseFuture responseFuture = clientConnector.send(inboundRequestMsg);

@@ -6,10 +6,8 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.ReferenceCountUtil;
 
 import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
 
 /**
  * some code by shaf on 6/25/17.

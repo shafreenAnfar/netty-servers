@@ -2,9 +2,6 @@ package reverseProxy;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
-import io.netty.util.ReferenceCountUtil;
-
-import java.nio.ByteBuffer;
 
 /**
  * code by shaf on 6/25/17.

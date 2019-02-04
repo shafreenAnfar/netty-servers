@@ -1,3 +1,5 @@
+package httpServer;
+
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -8,7 +10,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         System.out.println(" Server received: " + msg);
-        ctx.write(msg);
+        ctx.writeAndFlush(msg);
     }
 
     @Override
