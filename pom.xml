@@ -74,7 +74,7 @@
         <dependency>
             <groupId>org.wso2.transport.http</groupId>
             <artifactId>org.wso2.transport.http.netty</artifactId>
-            <version>6.0.260</version>
+            <version>6.3.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.ops4j.pax.logging</groupId>
