@@ -1,18 +1,18 @@
 package carbonReverseProxy;
 
-import org.wso2.transport.http.netty.contract.HttpClientConnector;
-import org.wso2.transport.http.netty.contract.HttpConnectorListener;
-import org.wso2.transport.http.netty.contract.HttpResponseFuture;
-import org.wso2.transport.http.netty.contract.HttpWsConnectorFactory;
-import org.wso2.transport.http.netty.contract.ServerConnector;
-import org.wso2.transport.http.netty.contract.ServerConnectorException;
-import org.wso2.transport.http.netty.contract.ServerConnectorFuture;
-import org.wso2.transport.http.netty.contract.config.ListenerConfiguration;
-import org.wso2.transport.http.netty.contract.config.SenderConfiguration;
-import org.wso2.transport.http.netty.contract.config.ServerBootstrapConfiguration;
-import org.wso2.transport.http.netty.contractimpl.DefaultHttpWsConnectorFactory;
-import org.wso2.transport.http.netty.message.HttpCarbonMessage;
-import org.wso2.transport.http.netty.message.HttpMessageDataStreamer;
+import io.ballerina.stdlib.http.transport.contract.HttpClientConnector;
+import io.ballerina.stdlib.http.transport.contract.HttpConnectorListener;
+import io.ballerina.stdlib.http.transport.contract.HttpResponseFuture;
+import io.ballerina.stdlib.http.transport.contract.HttpWsConnectorFactory;
+import io.ballerina.stdlib.http.transport.contract.ServerConnector;
+import io.ballerina.stdlib.http.transport.contract.exceptions.ServerConnectorException;
+import io.ballerina.stdlib.http.transport.contract.ServerConnectorFuture;
+import io.ballerina.stdlib.http.transport.contract.config.ListenerConfiguration;
+import io.ballerina.stdlib.http.transport.contract.config.SenderConfiguration;
+import io.ballerina.stdlib.http.transport.contract.config.ServerBootstrapConfiguration;
+import io.ballerina.stdlib.http.transport.contractimpl.DefaultHttpWsConnectorFactory;
+import io.ballerina.stdlib.http.transport.message.HttpCarbonMessage;
+import io.ballerina.stdlib.http.transport.message.HttpMessageDataStreamer;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
